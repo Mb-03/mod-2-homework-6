@@ -16,8 +16,8 @@ class Student extends Person {
   grade = null;
   subjects = [];
 
-  constructor(name, grade, subjects) {
-    super(name);
+  constructor(name, age, grade, subjects) {
+    super(name, age);
     this.grade = grade;
     this.subjects = subjects;
   }
@@ -37,8 +37,8 @@ class Teacher extends Person {
   subject = null;
   salary = null;
 
-  constructor(subject, salary, name) {
-    super(name);
+  constructor(name, age, subject, salary) {
+    super(name, age);
     this.subject = subject;
     this.salary = salary;
   }
@@ -52,7 +52,7 @@ class Teacher extends Person {
   };
 }
 
-class CLassroom {
+class Classroom {
   teacher = null;
   students = [];
 
@@ -76,13 +76,9 @@ class CLassroom {
   };
 
   findStudent = (name) => {
-    return this.students.map((student) => {
-      if (student.name.toLowerCase() === name.toLowerCase()) {
-        return student.name;
-      } else {
-        return;
-      }
-    });
+    return this.students.find(
+      (student) => student.name.toLowerCase() === name.toLowerCase()
+    );
   };
 
   averageAge = () => {
@@ -90,7 +86,10 @@ class CLassroom {
       return 0;
     }
 
-    const totalAge = this.students.reduce((acc, current) => acc + current, 0);
+    const totalAge = this.students.reduce(
+      (acc, student) => acc + student.age,
+      0
+    );
 
     return totalAge / this.students.length;
   };
